@@ -1,0 +1,36 @@
+Pensando mais em casos de uso..
+
+Empresa::grupos de usuário
+{
+	Administração
+	Financeiro
+	Recursos humanos
+}
+
+Cliente::tipos de usuário
+{
+	Pessoa física
+	Pessoa jurídica
+}
+
+Dependendo do login.. a pessoa tem acesso a certas partes do site..
+e o sua página inicial muda.. por exemplo.. de cliente será ofertas, de administração página de rede interna..
+
+Cliente::Pessoa física && Pessoa jurídica
+{
+	crud cadastro
+	{
+		read histórico de compras
+		crud compra
+		write comentário sobre produto
+		write comentário sobre compra
+	}
+	read produtos
+	read ofertas
+	write contato com empresa
+}
+
+Empresa::Recursos humanos
+{
+	...
+}
