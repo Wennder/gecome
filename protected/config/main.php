@@ -20,6 +20,7 @@ return array(
         'application.controllers.*',
         'ext.easyimage.EasyImage',
         'application.modules.userGroups.models.*',
+        'ext.giix-components.*',
     ),
     'modules' => array(
         'gii' => array(
