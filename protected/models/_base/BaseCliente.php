@@ -20,6 +20,22 @@
  */
 abstract class BaseCliente extends GxActiveRecord {
 
+        public $tipo = 0; //0 pf, 1 pj
+        
+        public $telefones = array();
+        
+        public $enderecos = array();
+        
+        public $username;
+        
+        public $email;
+        
+        public $senha;
+        
+        public $confirma_senha;
+        
+        public $cidade;
+    
 	public static function model($className=__CLASS__) {
 		return parent::model($className);
 	}
@@ -38,7 +54,7 @@ abstract class BaseCliente extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('id_user, data_criacao', 'required'),
+			array('id_user, data_criacao, email, username, senha, confirma_senha', 'required'),
 			array('id_pessoa_fisica, id_pessoa_juridica', 'numerical', 'integerOnly'=>true),
 			array('id_user', 'length', 'max'=>20),
 			array('id_pessoa_fisica, id_pessoa_juridica', 'default', 'setOnEmpty' => true, 'value' => null),
@@ -63,10 +79,14 @@ abstract class BaseCliente extends GxActiveRecord {
 			'id_cliente' => Yii::t('app', 'Id Cliente'),
 			'id_pessoa_fisica' => null,
 			'id_pessoa_juridica' => null,
-			'id_user' => Yii::t('app', 'Id User'),
-			'data_criacao' => Yii::t('app', 'Data Criacao'),
+			'id_user' => Yii::t('app', 'Id Usuário'),
+			'data_criacao' => Yii::t('app', 'Data Criação'),
 			'idPessoaFisica' => null,
 			'idPessoaJuridica' => null,
+                        'username' => 'Usuário',
+                        'email' => 'E-mail',
+                        'senha' => 'Senha',
+                        'confirma_senha' => 'Confirma Senha',
 		);
 	}
 

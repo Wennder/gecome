@@ -15,7 +15,8 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>./css/main.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
         
-        
+        <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/jquery.maskedinput.js'); ?>
+        <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/default.js'); ?>
         
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
@@ -35,14 +36,14 @@
                             'class' => 'bootstrap.widgets.TbMenu',
                             'htmlOptions' => array('class' => 'pull-right'),
                             'items' => array(
-                                array('label' => 'Sign up', 'url' => array('/site/contact'), 'visible' => Yii::app()->user->isGuest),
+                                array('label' => 'Cadastre-se', 'url' => array('/cliente/create'), 'visible' => Yii::app()->user->isGuest),
                                 array('label' => 'User', 'url' => array('#'), 'visible' => !Yii::app()->user->isGuest, 'items' => array(
                                         array('label' => 'Item', 'url' => '#'),
                                     )
                                 ),
                                 '---',
-                                array('label' => 'Log in', 'url' => array('/userGroups'), 'visible' => Yii::app()->user->isGuest),
-                                array('label' => 'Log out (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest),
+                                array('label' => 'Login', 'url' => array('/userGroups'), 'visible' => Yii::app()->user->isGuest),
+                                array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest),
                             ),
                         ),
                     ),
@@ -63,7 +64,9 @@
             $url = Yii::app()->request->url;
             $check = 'userGroups';
             $check2 = 'site';
-            if (!strstr($url, $check) && !strstr($url, $check2)) {
+            $check3 = 'cliente';
+            if (!strstr($url, $check) && !strstr($url, $check2)
+                    && !strstr($url, $check3)) {
                 $model = new SearchForm;
                 $this->renderPartial('//site/search_form', array('model' => $model));
             }

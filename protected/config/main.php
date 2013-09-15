@@ -8,6 +8,10 @@ return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'GeComE',
     'theme' => 'default',
+    // user language (for Locale)
+    'language' => 'pt_BR',
+    //language for messages and views
+    'sourceLanguage' => 'pt_BR',
     // preloading 'log' component
     'preload' => array(
         'log',
@@ -50,7 +54,7 @@ return array(
             'forceCopyAssets' => true,
         ),
         'user' => array(
-        // enable cookie-based authentication
+            // enable cookie-based authentication
             'allowAutoLogin' => true,
             'class' => 'userGroups.components.WebUserGroups',
         ),

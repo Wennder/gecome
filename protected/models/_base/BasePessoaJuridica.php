@@ -67,10 +67,10 @@ abstract class BasePessoaJuridica extends GxActiveRecord {
 	public function attributeLabels() {
 		return array(
 			'id_pessoa_juridica' => Yii::t('app', 'Id Pessoa Juridica'),
-			'razao_social' => Yii::t('app', 'Razao Social'),
+			'razao_social' => Yii::t('app', 'Razão Social'),
 			'nome_fantasia' => Yii::t('app', 'Nome Fantasia'),
-			'cnpj' => Yii::t('app', 'Cnpj'),
-			'insc_estadual' => Yii::t('app', 'Insc Estadual'),
+			'cnpj' => Yii::t('app', 'CNPJ'),
+			'insc_estadual' => Yii::t('app', 'Inscrição Estadual'),
 			'email' => Yii::t('app', 'Email'),
 			'clientes' => null,
 			'fornecedors' => null,

@@ -70,8 +70,8 @@ abstract class BasePessoaFisica extends GxActiveRecord {
 		return array(
 			'id_pessoa_fisica' => Yii::t('app', 'Id Pessoa Fisica'),
 			'nome' => Yii::t('app', 'Nome'),
-			'cpf' => Yii::t('app', 'Cpf'),
-			'rg' => Yii::t('app', 'Rg'),
+			'cpf' => Yii::t('app', 'CPF'),
+			'rg' => Yii::t('app', 'RG'),
 			'data_nascimento' => Yii::t('app', 'Data Nascimento'),
 			'sexo' => Yii::t('app', 'Sexo'),
 			'email' => Yii::t('app', 'Email'),
