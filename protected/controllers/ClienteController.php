@@ -23,13 +23,20 @@ class ClienteController extends GxController {
         $model = new Cliente;
         $model_pf = new PessoaFisica;
         $model_pj = new PessoaJuridica;
-
+        $model_endereco = new Endereco;
+        $erros = array();
+        
 //        if (isset($_POST['Cliente']['telefones'])) {
 //            foreach($_POST['Cliente']['telefones']['numero'] as $telefone) {
 //                echo $telefone;
 //            }
 //        }
-
+        
+//        if (isset($_POST['Endereco'])) {
+//            echo $_POST['Endereco']['id_cidade'];
+//            exit;
+//        }
+        
         if (isset($_POST['Cliente'])) {
             $model->setAttributes($_POST['Cliente']);
 
@@ -41,7 +48,7 @@ class ClienteController extends GxController {
             }
         }
 
-        $this->render('create', array('model' => $model, 'model_pf' => $model_pf, 'model_pj' => $model_pj));
+        $this->render('create', array('model' => $model, 'model_pf' => $model_pf, 'model_pj' => $model_pj, 'model_endereco' => $model_endereco, 'erros' => $erros));
     }
 
     public function actionUpdate($id) {

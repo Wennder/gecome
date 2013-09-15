@@ -19,7 +19,7 @@
         <?php echo $form->textFieldRow($model_pf, 'cpf', array('class' => 'cpf')); ?>
         <?php echo $form->textFieldRow($model_pf, 'rg', array('class' => 'rg')); ?>
         <?php echo $form->dropDownListRow($model_pf, 'sexo', array('Masculino', 'Feminino')); ?>
-        <?php echo $form->textFieldRow($model_pf, 'data_nascimento', array('class' => 'date', 'rel' => 'tooltip', 'title' => 'Formato: DD/MM/AAAA', 'data-placement' => 'right')); ?>
+        <?php echo $form->textFieldRow($model_pf, 'data_nascimento', array('class' => 'date', 'rel' => 'popover', 'data-content' => 'Formato: DD/MM/AAAA', 'data-placement' => 'right')); ?>
     </div>
     
     <div id="form_cnpj">
@@ -30,7 +30,7 @@
     </div>
     
     <div class="control-group">
-        <label class="control-label" for="Cliente_telefones_numero">Telefone <span class='required'>*</span></label>
+        <label class="control-label" for="Cliente_telefones_numero">Telefone Preferencial <span class='required'>*</span></label>
         <div class="controls">
             <input class="phone" name="Cliente[telefones][numero][]" id="Cliente_telefones_numero" type="text" />
             <select name="Cliente[telefones][tipo][]" id="Cliente_telefones_tipo">
@@ -48,16 +48,16 @@
     <div id="receptor"></div>
     
     <div class="controls">
-        <?php echo CHtml::label('Adicionar telefone', '', array('id' => 'link_telefone')); ?>
+        <?php echo CHtml::label('+ Adicionar telefone', '', array('id' => 'link_telefone')); ?>
     </div>
     
     <hr>
     
-    <?php echo $form->textFieldRow($model, 'username', array('rel' => 'tooltip', 'title' => 'Você poderá utilizar esse nome para efetuar login', 'data-placement' => 'right')); ?>
+    <?php echo $form->textFieldRow($model, 'username', array('rel' => 'popover', 'data-content' => 'Você poderá utilizar esse nome para efetuar login', 'data-placement' => 'right')); ?>
     
     <?php echo $form->textFieldRow($model, 'email'); ?>
     
-    <?php echo $form->passwordFieldRow($model, 'senha', array('class' => 'pw', 'rel' => 'tooltip', 'title' => 'Sua senha deve ter de 5 a 8 caracteres, somente letras e números', 'data-placement' => 'right')); ?>
+    <?php echo $form->passwordFieldRow($model, 'senha', array('class' => 'pw', 'rel' => 'popover', 'data-content' => 'Sua senha deve ter de 5 a 8 caracteres, somente letras e números', 'data-placement' => 'right')); ?>
     
     <?php echo $form->passwordFieldRow($model, 'confirma_senha', array('class' => 'c_pw')); ?>
     
@@ -66,92 +66,59 @@
 <hr>
 
 <fieldset>
-    <legend>Cadastro de Endereço</legend>
+    <legend>Cadastro de Endereço Preferencial<br><span style="color: #87b2ff; font-size: 12pt;">Após cadastrado, vá em Usuário > Perfil para adicionar novos endereços</span></legend>
+    
+    <?php echo $form->textFieldRow($model_endereco, 'nome', array(
+        'rel' => 'popover', 
+        'data-content' => 'Escolha um nome para esse endereço', 
+        'data-placement' => 'right'
+        )); ?>
+    
+    <?php echo $form->radioButtonListInlineRow($model_endereco, 'tipo', array(
+        'Apartamento',
+        'Casa',
+        'Comercial'
+    )); ?>
+    
+    <?php echo $form->textFieldRow($model_endereco, 'cep', array(
+        'class' => 'cep'
+    )); ?>
+    
+    <?php echo $form->textFieldRow($model_endereco, 'rua'); ?>
+    
+    <?php echo $form->textFieldRow($model_endereco, 'numero'); ?>
+    
+    <?php echo $form->textFieldRow($model_endereco, 'complemento'); ?>
+    
+    <?php echo $form->textAreaRow($model_endereco, 'descricao', array(
+        'style' => 'width: 412px'
+    )); ?>
+    
+    <?php echo $form->textFieldRow($model_endereco, 'bairro'); ?>
+    
+    <?php echo CHtml::hiddenField('Endereco[id_cidade]', '', array('id' => 'Endereco_id_cidade')); ?>
     
     <div class="control-group">
-        <label class="control-label" for="Cliente_enderecos_nome">Nome <span class='required'>*</span></label>
-        <div class="controls">
-            <input name="Cliente[enderecos][nome][]" id="Cliente_enderecos_nome" type="text" rel="tooltip" title="Nome para esse endereço" data-placement="right"  />
-        </div>
-    </div>
-    
-    <div class="control-group">
-        <label class="control-label" for="Cliente_enderecos_cep">CEP <span class='required'>*</span></label>
-        <div class="controls">
-            <input class="cep" name="Cliente[enderecos][cep][]" id="Cliente_enderecos_cep" type="text" />
-        </div>
-    </div>
-    
-    <div class="control-group">
-        <label class="control-label" for="Cliente_enderecos_tipo">Identificação do Endereço <span class='required'>*</span></label>
-        <div class="controls">
-            <input id="ytCliente_tipo" type="hidden" value="" name="Cliente[enderecos][tipo][]" />
-            <label class="radio inline">
-                <input id="Cliente_enderecos_tipo_0" value="0" checked="checked" type="radio" name="Cliente[enderecos][tipo][]" />
-                <label for="Cliente_enderecos_tipo_0">Apartamento</label>
-            </label>
-            <label class="radio inline">
-                <input id="Cliente_enderecos_tipo_1" value="1" type="radio" name="Cliente[enderecos][tipo][]" />
-                <label for="Cliente_enderecos_tipo_1">Casa</label>
-            </label>
-            <label class="radio inline">
-                <input id="Cliente_enderecos_tipo_2" value="2" type="radio" name="Cliente[enderecos][tipo][]" />
-                <label for="Cliente_enderecos_tipo_2">Comercial</label>
-            </label>
-            <label class="radio inline">
-                <input id="Cliente_enderecos_tipo_3" value="3" type="radio" name="Cliente[enderecos][tipo][]" />
-                <label for="Cliente_enderecos_tipo_3">Outro</label>
-            </label>
-        </div>
-    </div>
-    
-    <div class="control-group">
-        <label class="control-label" for="Cliente_enderecos_rua">Rua <span class='required'>*</span></label>
-        <div class="controls">
-            <input name="Cliente[enderecos][rua][]" id="Cliente_enderecos_rua" type="text" />
-        </div>
-    </div>
-    
-    <div class="control-group">
-        <label class="control-label" for="Cliente_enderecos_numero">Número <span class='required'>*</span></label>
-        <div class="controls">
-            <input name="Cliente[enderecos][numero][]" id="Cliente_enderecos_numero" type="text" />
-        </div>
-    </div>
-    
-    <div class="control-group">
-        <label class="control-label" for="Cliente_enderecos_complemento">Complemento</label>
-        <div class="controls">
-            <input name="Cliente[enderecos][complemento][]" id="Cliente_enderecos_complemento" type="text" />
-        </div>
-    </div>
-    
-    <div class="control-group">
-        <label class="control-label" for="Cliente_enderecos_descricao">Informações de Referência</label>
-        <div class="controls">
-            <textarea name="Cliente[enderecos][descricao][]" id="Cliente_enderecos_descricao" style="margin: 0px; width: 412px; height: 40px;"></textarea>
-        </div>
-    </div>
-    
-    <div class="control-group">
-        <label class="control-label" for="Cliente_enderecos_bairro">Bairro <span class='required'>*</span></label>
-        <div class="controls">
-            <input name="Cliente[enderecos][bairro][]" id="Cliente_enderecos_bairro" type="text" />
-        </div>
-    </div>
-    
-    <?php echo CHtml::hiddenField('id_pais', '1'); ?>
-    
-    <div class="control-group">
-        <label class="control-label" for="Cliente_enderecos_pais">País <span class="required">*</span></label>
-        <div class="controls">
-            <select name="Cliente[enderecos][pais][]" id="Cliente_enderecos_pais">
-                <?php $paises = Pais::model()->findAll(array('order' => ' nome')); ?>
-                <?php foreach ($paises as $pais) { ?>
-                    <option value="<?php echo $pais->id_pais; ?>" <?php echo $pais->id_pais == 1 ? 'selected' : '' ?>><?php echo $pais->nome; ?></option>
-                <?php } ?>
-            </select>
-        </div>
+        <label class="control-label" for="id_cidade">Cidade <span class='required'>*</span></label>
+            <div class="controls">
+                <?php
+                    $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                        'name' => 'id_cidade',
+                        'value' => $model_endereco->id_cidade,
+                        'source' => Yii::app()->createUrl('/endereco/cidadeAutoComplete'),
+                        'options' => array(
+                            'minLength' => '3',
+                            'select' => 'js:function(event, ui) { $("#Endereco_id_cidade").val(ui.item.id); }'
+                        ),
+                        'htmlOptions' => array(
+                            'id' => 'id_cidade',
+                            'rel' => 'popover',
+                            'data-content' => 'Digite no mínimo 3 letras e espere carregar as opções',
+                            'data-placement' => 'right',
+                        ),
+                    ));
+                ?>
+            </div>
     </div>
     
 </fieldset>
@@ -163,6 +130,14 @@
 <?php $this->endWidget(); ?>
 
 <style>
+    div#outra_cidade
+    {
+        display:none;
+    }
+    div#outro_estado
+    {
+        display:none;
+    }
     div#form_cpf
     {
         display: block;
@@ -172,6 +147,12 @@
         display: none;
     }
     label#link_telefone
+    {
+        cursor: pointer;
+        color: #87b2ff;
+        margin-top: -15px;
+    }
+    label#link_endereco
     {
         cursor: pointer;
         color: #87b2ff;

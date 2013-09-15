@@ -6,6 +6,7 @@
 $(document).ready(function() {
 
     jQuery(function($) {
+        $('#Cliente_username').tooltip();
         $(".date").mask("99/99/9999");
         $(".phone").mask("(99) 9999-9999");
         $(".cpf").mask("999.999.999-99");
@@ -14,7 +15,7 @@ $(document).ready(function() {
         $(".insc_estadual").mask("99999999", {placeholder: " "});
         $(".pw").mask("*****?***", {placeholder: ""});
         $(".c_pw").mask("*****?***", {placeholder: ""});
-        $(".cep").mask("9999-999");
+        $(".cep").mask("99999-999");
     });
 
     $('#Cliente_tipo_0').live('click', function() {
@@ -30,31 +31,38 @@ $(document).ready(function() {
     });
 
     $(".date").live('focus', function() {
-        $(".date").tooltip('show');
+        $(".date").popover('show');
     });
     $(".date").live('blur', function() {
-        $(".date").tooltip('hide');
+        $(".date").popover('hide');
     });
 
     $("#Cliente_username").live('focus', function() {
-        $("#Cliente_username").tooltip('show');
+        $("#Cliente_username").popover('show');
     });
     $("#Cliente_username").live('blur', function() {
-        $("#Cliente_username").tooltip('hide');
+        $("#Cliente_username").popover('hide');
     });
 
     $(".pw").live('focus', function() {
-        $(".pw").tooltip('show');
+        $(".pw").popover('show');
     });
     $(".pw").live('blur', function() {
-        $(".pw").tooltip('hide');
+        $(".pw").popover('hide');
     });
 
-    $("#Cliente_enderecos_nome").live('focus', function() {
-        $("#Cliente_enderecos_nome").tooltip('show');
+    $("#Endereco_nome").live('focus', function() {
+        $("#Endereco_nome").popover('show');
     });
-    $("#Cliente_enderecos_nome").live('blur', function() {
-        $("#Cliente_enderecos_nome").tooltip('hide');
+    $("#Endereco_nome").live('blur', function() {
+        $("#Endereco_nome").popover('hide');
+    });
+
+    $("#id_cidade").live('focus', function() {
+        $("#id_cidade").popover('show');
+    });
+    $("#id_cidade").live('blur', function() {
+        $("#id_cidade").popover('hide');
     });
 
     var i = 0;
@@ -82,7 +90,7 @@ $(document).ready(function() {
                     <option value="1" ' + sel1 + '>Celular</option>\n\
                     <option value="2" ' + sel2 + '>Comercial</option>\n\
                 </select>\n\
-                <label class="del_telefone" id="' + i + '">X</label>\n\
+                <label class="del_telefone" id="' + i + '"><strong>X</strong></label>\n\
             </div>\n\
         </div>';
         $('#receptor').append(str);
@@ -105,8 +113,3 @@ $(document).ready(function() {
     });
 
 });
-
-function mySplit(input) {
-    var output = input.split("##");
-    return output;
-}

@@ -24,8 +24,6 @@ abstract class BaseCliente extends GxActiveRecord {
         
         public $telefones = array();
         
-        public $enderecos = array();
-        
         public $username;
         
         public $email;
@@ -33,8 +31,6 @@ abstract class BaseCliente extends GxActiveRecord {
         public $senha;
         
         public $confirma_senha;
-        
-        public $cidade;
     
 	public static function model($className=__CLASS__) {
 		return parent::model($className);
