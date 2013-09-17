@@ -6,13 +6,13 @@
 $(document).ready(function() {
 
     jQuery(function($) {
-        $('#Cliente_username').tooltip();
         $(".date").mask("99/99/9999");
         $(".phone").mask("(99) 9999-9999");
         $(".cpf").mask("999.999.999-99");
         $(".cnpj").mask("99.999.999/9999-99");
         $(".rg").mask("999999999?9", {placeholder: " "});
         $(".insc_estadual").mask("99999999", {placeholder: " "});
+        $(".username").mask("a***?******", {placeholder: ""});
         $(".pw").mask("*****?***", {placeholder: ""});
         $(".c_pw").mask("*****?***", {placeholder: ""});
         $(".cep").mask("99999-999");

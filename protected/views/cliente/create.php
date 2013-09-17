@@ -11,7 +11,7 @@ $this->breadcrumbs = array(
         'headerIcon' => 'icon-thumbs-down',
         'content' => $this->renderPartial('/site/_error', array('erros' => $erros), true),
         'htmlContentOptions' => array(
-            'style' => 'background: #ff575b;'
+            'style' => 'background: #b94a48;'
         )
     ));
 } ?>

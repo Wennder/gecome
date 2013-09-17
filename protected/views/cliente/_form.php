@@ -30,7 +30,7 @@
     </div>
     
     <div class="control-group">
-        <label class="control-label" for="Cliente_telefones_numero">Telefone Preferencial <span class='required'>*</span></label>
+        <label class="control-label required" for="Cliente_telefones_numero">Telefone Preferencial <span class='required'>*</span></label>
         <div class="controls">
             <input class="phone" name="Cliente[telefones][numero][]" id="Cliente_telefones_numero" type="text" />
             <select name="Cliente[telefones][tipo][]" id="Cliente_telefones_tipo">
@@ -53,7 +53,7 @@
     
     <hr>
     
-    <?php echo $form->textFieldRow($model, 'username', array('rel' => 'popover', 'data-content' => 'Você poderá utilizar esse nome para efetuar login', 'data-placement' => 'right')); ?>
+    <?php echo $form->textFieldRow($model, 'username', array('class' => 'username', 'rel' => 'popover', 'data-content' => 'Seu nome de usuário deve ter de 4 a 10 caracteres, somente letras e números, e iniciar com uma letra', 'data-placement' => 'right')); ?>
     
     <?php echo $form->textFieldRow($model, 'email'); ?>
     
@@ -160,7 +160,7 @@
     }
     label.del_telefone, label.erro_senha
     {
-        color: #ff575b;
+        color: #b94a48;
         display: inline-block;
         margin-bottom: 0;
         margin-left: 10px;
