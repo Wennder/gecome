@@ -1,7 +1,7 @@
 assets/
 protected/runtime/
 uploads/
-
+nbproject/
 !.gitignore
 !/protected/extensions/slider/assets/
 !/protected/extensions/bootstrap/assets/
