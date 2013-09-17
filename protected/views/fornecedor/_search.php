@@ -16,11 +16,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model, 'id_endereco'); ?>
-		<?php echo $form->dropDownList($model, 'id_endereco', GxHtml::listDataEx(Endereco::model()->findAllAttributes(null, true)), array('prompt' => Yii::t('app', 'All'))); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model, 'site'); ?>
 		<?php echo $form->textField($model, 'site', array('maxlength' => 120)); ?>
 	</div>

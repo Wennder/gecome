@@ -10,5 +10,8 @@
 	<?php echo GxHtml::encode($data->getAttributeLabel('data_criacao')); ?>:
 	<?php echo GxHtml::encode($data->data_criacao); ?>
 	<br />
+	<?php echo GxHtml::encode($data->getAttributeLabel('id_telefone')); ?>:
+		<?php echo GxHtml::encode(GxHtml::valueEx($data->idTelefone)); ?>
+	<br />
 
 </div>

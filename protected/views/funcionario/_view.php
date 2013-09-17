@@ -7,12 +7,6 @@
 	<?php echo GxHtml::encode($data->getAttributeLabel('id_pessoa_fisica')); ?>:
 		<?php echo GxHtml::encode(GxHtml::valueEx($data->idPessoaFisica)); ?>
 	<br />
-	<?php echo GxHtml::encode($data->getAttributeLabel('id_telefone')); ?>:
-		<?php echo GxHtml::encode(GxHtml::valueEx($data->idTelefone)); ?>
-	<br />
-	<?php echo GxHtml::encode($data->getAttributeLabel('id_endereco')); ?>:
-		<?php echo GxHtml::encode(GxHtml::valueEx($data->idEndereco)); ?>
-	<br />
 	<?php echo GxHtml::encode($data->getAttributeLabel('id_user')); ?>:
 	<?php echo GxHtml::encode($data->id_user); ?>
 	<br />

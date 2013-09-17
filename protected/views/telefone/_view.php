@@ -7,9 +7,6 @@
 	<?php echo GxHtml::encode($data->getAttributeLabel('tipo')); ?>:
 	<?php echo GxHtml::encode($data->tipo); ?>
 	<br />
-	<?php echo GxHtml::encode($data->getAttributeLabel('codigo')); ?>:
-	<?php echo GxHtml::encode($data->codigo); ?>
-	<br />
 	<?php echo GxHtml::encode($data->getAttributeLabel('numero')); ?>:
 	<?php echo GxHtml::encode($data->numero); ?>
 	<br />

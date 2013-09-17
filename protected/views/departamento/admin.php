@@ -46,6 +46,11 @@ You may optionally enter a comparison operator (&lt;, &lt;=, &gt;, &gt;=, &lt;&g
 		'nome',
 		'data_criacao',
 		array(
+				'name'=>'id_telefone',
+				'value'=>'GxHtml::valueEx($data->idTelefone)',
+				'filter'=>GxHtml::listDataEx(Telefone::model()->findAllAttributes(null, true)),
+				),
+		array(
 			'class' => 'CButtonColumn',
 		),
 	),

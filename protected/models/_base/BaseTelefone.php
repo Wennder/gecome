@@ -11,11 +11,10 @@
  *
  * @property integer $id_telefone
  * @property integer $tipo
- * @property string $codigo
  * @property string $numero
  *
  * @property Contato[] $contatos
- * @property Funcionario[] $funcionarios
+ * @property Departamento[] $departamentos
  * @property PessoaHasTelefone[] $pessoaHasTelefones
  */
 abstract class BaseTelefone extends GxActiveRecord {
@@ -40,17 +39,15 @@ abstract class BaseTelefone extends GxActiveRecord {
 		return array(
 			array('tipo, numero', 'required'),
 			array('tipo', 'numerical', 'integerOnly'=>true),
-			array('codigo', 'length', 'max'=>2),
-			array('numero', 'length', 'max'=>8),
-			array('codigo', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id_telefone, tipo, codigo, numero', 'safe', 'on'=>'search'),
+			array('numero', 'length', 'max'=>13),
+			array('id_telefone, tipo, numero', 'safe', 'on'=>'search'),
 		);
 	}
 
 	public function relations() {
 		return array(
 			'contatos' => array(self::HAS_MANY, 'Contato', 'id_telefone'),
-			'funcionarios' => array(self::HAS_MANY, 'Funcionario', 'id_telefone'),
+			'departamentos' => array(self::HAS_MANY, 'Departamento', 'id_telefone'),
 			'pessoaHasTelefones' => array(self::HAS_MANY, 'PessoaHasTelefone', 'id_telefone'),
 		);
 	}
@@ -64,10 +61,9 @@ abstract class BaseTelefone extends GxActiveRecord {
 		return array(
 			'id_telefone' => Yii::t('app', 'Id Telefone'),
 			'tipo' => Yii::t('app', 'Tipo'),
-			'codigo' => Yii::t('app', 'Codigo'),
 			'numero' => Yii::t('app', 'Numero'),
 			'contatos' => null,
-			'funcionarios' => null,
+			'departamentos' => null,
 			'pessoaHasTelefones' => null,
 		);
 	}
@@ -77,7 +73,6 @@ abstract class BaseTelefone extends GxActiveRecord {
 
 		$criteria->compare('id_telefone', $this->id_telefone);
 		$criteria->compare('tipo', $this->tipo);
-		$criteria->compare('codigo', $this->codigo, true);
 		$criteria->compare('numero', $this->numero, true);
 
 		return new CActiveDataProvider($this, array(

@@ -7,9 +7,6 @@
 	<?php echo GxHtml::encode($data->getAttributeLabel('id_pessoa_juridica')); ?>:
 		<?php echo GxHtml::encode(GxHtml::valueEx($data->idPessoaJuridica)); ?>
 	<br />
-	<?php echo GxHtml::encode($data->getAttributeLabel('id_endereco')); ?>:
-		<?php echo GxHtml::encode(GxHtml::valueEx($data->idEndereco)); ?>
-	<br />
 	<?php echo GxHtml::encode($data->getAttributeLabel('site')); ?>:
 	<?php echo GxHtml::encode($data->site); ?>
 	<br />

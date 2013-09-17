@@ -16,13 +16,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model, 'codigo'); ?>
-		<?php echo $form->textField($model, 'codigo', array('maxlength' => 2)); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model, 'numero'); ?>
-		<?php echo $form->textField($model, 'numero', array('maxlength' => 8)); ?>
+		<?php echo $form->textField($model, 'numero', array('maxlength' => 13)); ?>
 	</div>
 
 	<div class="row buttons">

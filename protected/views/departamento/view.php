@@ -22,6 +22,11 @@ $this->menu=array(
 'id_departamento',
 'nome',
 'data_criacao',
+array(
+			'name' => 'idTelefone',
+			'type' => 'raw',
+			'value' => $model->idTelefone !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->idTelefone)), array('telefone/view', 'id' => GxActiveRecord::extractPkValue($model->idTelefone, true))) : null,
+			),
 	),
 )); ?>
 

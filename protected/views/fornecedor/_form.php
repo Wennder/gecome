@@ -19,11 +19,6 @@
 		<?php echo $form->error($model,'id_pessoa_juridica'); ?>
 		</div><!-- row -->
 		<div class="row">
-		<?php echo $form->labelEx($model,'id_endereco'); ?>
-		<?php echo $form->dropDownList($model, 'id_endereco', GxHtml::listDataEx(Endereco::model()->findAllAttributes(null, true))); ?>
-		<?php echo $form->error($model,'id_endereco'); ?>
-		</div><!-- row -->
-		<div class="row">
 		<?php echo $form->labelEx($model,'site'); ?>
 		<?php echo $form->textField($model, 'site', array('maxlength' => 120)); ?>
 		<?php echo $form->error($model,'site'); ?>

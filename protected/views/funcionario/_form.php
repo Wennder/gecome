@@ -19,16 +19,6 @@
 		<?php echo $form->error($model,'id_pessoa_fisica'); ?>
 		</div><!-- row -->
 		<div class="row">
-		<?php echo $form->labelEx($model,'id_telefone'); ?>
-		<?php echo $form->dropDownList($model, 'id_telefone', GxHtml::listDataEx(Telefone::model()->findAllAttributes(null, true))); ?>
-		<?php echo $form->error($model,'id_telefone'); ?>
-		</div><!-- row -->
-		<div class="row">
-		<?php echo $form->labelEx($model,'id_endereco'); ?>
-		<?php echo $form->dropDownList($model, 'id_endereco', GxHtml::listDataEx(Endereco::model()->findAllAttributes(null, true))); ?>
-		<?php echo $form->error($model,'id_endereco'); ?>
-		</div><!-- row -->
-		<div class="row">
 		<?php echo $form->labelEx($model,'id_user'); ?>
 		<?php echo $form->textField($model, 'id_user', array('maxlength' => 20)); ?>
 		<?php echo $form->error($model,'id_user'); ?>

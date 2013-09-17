@@ -33,6 +33,11 @@
 ; ?>
 		<?php echo $form->error($model,'data_criacao'); ?>
 		</div><!-- row -->
+		<div class="row">
+		<?php echo $form->labelEx($model,'id_telefone'); ?>
+		<?php echo $form->dropDownList($model, 'id_telefone', GxHtml::listDataEx(Telefone::model()->findAllAttributes(null, true))); ?>
+		<?php echo $form->error($model,'id_telefone'); ?>
+		</div><!-- row -->
 
 		<label><?php echo GxHtml::encode($model->getRelationLabel('departamentoHasFornecedors')); ?></label>
 		<?php echo $form->checkBoxList($model, 'departamentoHasFornecedors', GxHtml::encodeEx(GxHtml::listDataEx(DepartamentoHasFornecedor::model()->findAllAttributes(null, true)), false, true)); ?>

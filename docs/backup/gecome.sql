@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 07, 2013 at 11:17 PM
+-- Generation Time: Sep 17, 2013 at 02:56 AM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -30,11 +30,11 @@ USE `gecome`;
 
 CREATE TABLE IF NOT EXISTS `cidade` (
   `id_cidade` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(255) DEFAULT NULL,
+  `nome` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `id_estado` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_cidade`),
   KEY `fk_id_estado_idx` (`id_estado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5565 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5565 ;
 
 --
 -- Dumping data for table `cidade`
@@ -5622,8 +5622,7 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `data_criacao` date NOT NULL,
   PRIMARY KEY (`id_cliente`),
   KEY `fk_cliente_pessoa_fisica1_idx` (`id_pessoa_fisica`),
-  KEY `fk_cliente_pessoa_juridica1_idx` (`id_pessoa_juridica`),
-  KEY `fk_cliente_usergroups_user1_idx` (`id_user`)
+  KEY `fk_cliente_pessoa_juridica1_idx` (`id_pessoa_juridica`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -5655,7 +5654,9 @@ CREATE TABLE IF NOT EXISTS `departamento` (
   `id_departamento` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(120) NOT NULL,
   `data_criacao` date NOT NULL,
-  PRIMARY KEY (`id_departamento`)
+  `id_telefone` int(11) NOT NULL,
+  PRIMARY KEY (`id_departamento`),
+  KEY `fk_departamento_telefone1_idx` (`id_telefone`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -5717,12 +5718,12 @@ CREATE TABLE IF NOT EXISTS `endereco` (
 
 CREATE TABLE IF NOT EXISTS `estado` (
   `id_estado` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(255) DEFAULT NULL,
-  `uf` varchar(5) DEFAULT NULL,
+  `nome` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `uf` varchar(5) CHARACTER SET utf8 DEFAULT NULL,
   `id_pais` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_estado`),
   KEY `fk_id_pais_idx` (`id_pais`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=28 ;
 
 --
 -- Dumping data for table `estado`
@@ -5766,12 +5767,10 @@ INSERT INTO `estado` (`id_estado`, `nome`, `uf`, `id_pais`) VALUES
 CREATE TABLE IF NOT EXISTS `fornecedor` (
   `id_fornecedor` int(11) NOT NULL AUTO_INCREMENT,
   `id_pessoa_juridica` int(11) NOT NULL,
-  `id_endereco` int(11) NOT NULL COMMENT 'nota fiscal',
   `site` varchar(120) DEFAULT NULL,
   `data_criacao` date NOT NULL,
   PRIMARY KEY (`id_fornecedor`),
-  KEY `fk_fornecedor_pessoa_juridica1_idx` (`id_pessoa_juridica`),
-  KEY `fk_fornecedor_endereco1_idx` (`id_endereco`)
+  KEY `fk_fornecedor_pessoa_juridica1_idx` (`id_pessoa_juridica`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -5783,15 +5782,10 @@ CREATE TABLE IF NOT EXISTS `fornecedor` (
 CREATE TABLE IF NOT EXISTS `funcionario` (
   `id_funcionario` int(11) NOT NULL AUTO_INCREMENT,
   `id_pessoa_fisica` int(11) NOT NULL,
-  `id_telefone` int(11) NOT NULL,
-  `id_endereco` int(11) NOT NULL,
   `id_user` bigint(20) DEFAULT NULL COMMENT 'level ~99',
   `data_criacao` date NOT NULL,
   PRIMARY KEY (`id_funcionario`),
-  KEY `fk_funcionario_pessoa_fisica1_idx` (`id_pessoa_fisica`),
-  KEY `fk_funcionario_telefone1_idx` (`id_telefone`),
-  KEY `fk_funcionario_endereco1_idx` (`id_endereco`),
-  KEY `fk_funcionario_usergroups_user1_idx` (`id_user`)
+  KEY `fk_funcionario_pessoa_fisica1_idx` (`id_pessoa_fisica`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -5802,9 +5796,9 @@ CREATE TABLE IF NOT EXISTS `funcionario` (
 
 CREATE TABLE IF NOT EXISTS `pais` (
   `id_pais` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(255) DEFAULT NULL,
+  `nome` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`id_pais`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=251 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=251 ;
 
 --
 -- Dumping data for table `pais`
@@ -6139,8 +6133,7 @@ CREATE TABLE IF NOT EXISTS `pessoa_juridica` (
 CREATE TABLE IF NOT EXISTS `telefone` (
   `id_telefone` int(11) NOT NULL AUTO_INCREMENT,
   `tipo` tinyint(1) NOT NULL COMMENT '0 - residencial\n1 - celular\n2 - comercial',
-  `codigo` varchar(2) DEFAULT NULL,
-  `numero` varchar(8) NOT NULL,
+  `numero` varchar(13) NOT NULL,
   PRIMARY KEY (`id_telefone`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -6170,7 +6163,19 @@ CREATE TABLE IF NOT EXISTS `usergroups_access` (
   `controller` varchar(140) NOT NULL,
   `permission` varchar(7) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data for table `usergroups_access`
+--
+
+INSERT INTO `usergroups_access` (`id`, `element`, `element_id`, `module`, `controller`, `permission`) VALUES
+(1, 2, 3, 'Basic', 'site', 'admin'),
+(3, 2, 3, 'userGroups', 'user', 'admin'),
+(4, 2, 3, 'userGroups', 'admin', 'write'),
+(5, 2, 3, 'userGroups', 'admin', 'admin'),
+(6, 2, 3, 'Basic', 'cliente', 'admin'),
+(7, 2, 3, 'Basic', 'estado', 'admin');
 
 -- --------------------------------------------------------
 
@@ -6227,8 +6232,8 @@ CREATE TABLE IF NOT EXISTS `usergroups_cron` (
 --
 
 INSERT INTO `usergroups_cron` (`id`, `name`, `lapse`, `last_occurrence`) VALUES
-(1, 'garbage_collection', 7, '2013-09-04 00:00:00'),
-(2, 'unban', 1, '2013-09-07 00:00:00');
+(1, 'garbage_collection', 7, '2013-09-14 00:00:00'),
+(2, 'unban', 1, '2013-09-15 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -6238,12 +6243,12 @@ INSERT INTO `usergroups_cron` (`id`, `name`, `lapse`, `last_occurrence`) VALUES
 
 CREATE TABLE IF NOT EXISTS `usergroups_group` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `groupname` varchar(120) NOT NULL,
+  `groupname` varchar(120) CHARACTER SET latin1 NOT NULL,
   `level` int(6) DEFAULT NULL,
-  `home` varchar(120) DEFAULT NULL,
+  `home` varchar(120) CHARACTER SET latin1 DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `groupname` (`groupname`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `usergroups_group`
@@ -6251,7 +6256,8 @@ CREATE TABLE IF NOT EXISTS `usergroups_group` (
 
 INSERT INTO `usergroups_group` (`id`, `groupname`, `level`, `home`) VALUES
 (1, 'root', 100, NULL),
-(2, 'user', 1, '/userGroups');
+(2, 'user', 1, '/userGroups'),
+(3, 'admin', 99, '/userGroups/admin');
 
 -- --------------------------------------------------------
 
@@ -6261,11 +6267,11 @@ INSERT INTO `usergroups_group` (`id`, `groupname`, `level`, `home`) VALUES
 
 CREATE TABLE IF NOT EXISTS `usergroups_lookup` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `element` varchar(20) DEFAULT NULL,
+  `element` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
   `value` int(5) DEFAULT NULL,
-  `text` varchar(40) DEFAULT NULL,
+  `text` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `usergroups_lookup`
@@ -6304,15 +6310,15 @@ CREATE TABLE IF NOT EXISTS `usergroups_user` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   KEY `group_id_idxfk` (`group_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `usergroups_user`
 --
 
 INSERT INTO `usergroups_user` (`id`, `group_id`, `username`, `password`, `email`, `home`, `status`, `question`, `answer`, `creation_date`, `activation_code`, `activation_time`, `last_login`, `ban`, `ban_reason`) VALUES
-(1, 1, 'root', '7374fba8c59168bace36a26ed927f38f', 'dallrigo@gmail.com', '/userGroups/admin/documentation', 4, 'wat', 'wat', '2013-09-05 00:24:49', NULL, NULL, '2013-09-07 20:37:01', NULL, NULL),
-(2, 2, '_user522b8ee582d54', NULL, 'dallrigo1@gmail.com', NULL, 1, NULL, NULL, '2013-09-07 22:39:01', '522b8ee582d54', '2013-09-07 22:39:01', NULL, NULL, NULL);
+(1, 1, 'root', '7374fba8c59168bace36a26ed927f38f', 'dallrigo@gmail.com', '/userGroups/admin/documentation', 4, 'wat', 'wat', '2013-09-05 00:24:49', NULL, NULL, '2013-09-15 06:40:18', NULL, NULL),
+(3, 3, 'admin', '08301100ffd772ad74c5a338ff68c548', 'dallrigo1@gmail.com', '/userGroups/admin', 4, NULL, NULL, '2013-09-10 22:49:39', NULL, NULL, '2013-09-15 06:43:06', NULL, NULL);
 
 --
 -- Constraints for dumped tables
@@ -6329,8 +6335,7 @@ ALTER TABLE `cidade`
 --
 ALTER TABLE `cliente`
   ADD CONSTRAINT `fk_cliente_pessoa_fisica1` FOREIGN KEY (`id_pessoa_fisica`) REFERENCES `pessoa_fisica` (`id_pessoa_fisica`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_cliente_pessoa_juridica1` FOREIGN KEY (`id_pessoa_juridica`) REFERENCES `pessoa_juridica` (`id_pessoa_juridica`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_cliente_usergroups_user1` FOREIGN KEY (`id_user`) REFERENCES `usergroups_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_cliente_pessoa_juridica1` FOREIGN KEY (`id_pessoa_juridica`) REFERENCES `pessoa_juridica` (`id_pessoa_juridica`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `contato`
@@ -6339,6 +6344,12 @@ ALTER TABLE `contato`
   ADD CONSTRAINT `fk_contato_fornecedor1` FOREIGN KEY (`id_fornecedor`) REFERENCES `fornecedor` (`id_fornecedor`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_contato_telefone1` FOREIGN KEY (`id_telefone`) REFERENCES `telefone` (`id_telefone`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_contato_tipo_contato1` FOREIGN KEY (`id_tipo_contato`) REFERENCES `tipo_contato` (`id_tipo_contato`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `departamento`
+--
+ALTER TABLE `departamento`
+  ADD CONSTRAINT `fk_departamento_telefone1` FOREIGN KEY (`id_telefone`) REFERENCES `telefone` (`id_telefone`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `departamento_has_fornecedor`
@@ -6370,17 +6381,13 @@ ALTER TABLE `estado`
 -- Constraints for table `fornecedor`
 --
 ALTER TABLE `fornecedor`
-  ADD CONSTRAINT `fk_fornecedor_endereco1` FOREIGN KEY (`id_endereco`) REFERENCES `endereco` (`id_endereco`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_fornecedor_pessoa_juridica1` FOREIGN KEY (`id_pessoa_juridica`) REFERENCES `pessoa_juridica` (`id_pessoa_juridica`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `funcionario`
 --
 ALTER TABLE `funcionario`
-  ADD CONSTRAINT `fk_funcionario_endereco1` FOREIGN KEY (`id_endereco`) REFERENCES `endereco` (`id_endereco`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_funcionario_pessoa_fisica1` FOREIGN KEY (`id_pessoa_fisica`) REFERENCES `pessoa_fisica` (`id_pessoa_fisica`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_funcionario_telefone1` FOREIGN KEY (`id_telefone`) REFERENCES `telefone` (`id_telefone`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_funcionario_usergroups_user1` FOREIGN KEY (`id_user`) REFERENCES `usergroups_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_funcionario_pessoa_fisica1` FOREIGN KEY (`id_pessoa_fisica`) REFERENCES `pessoa_fisica` (`id_pessoa_fisica`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `pessoa_has_endereco`

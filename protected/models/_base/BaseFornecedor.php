@@ -11,13 +11,11 @@
  *
  * @property integer $id_fornecedor
  * @property integer $id_pessoa_juridica
- * @property integer $id_endereco
  * @property string $site
  * @property string $data_criacao
  *
  * @property Contato[] $contatos
  * @property DepartamentoHasFornecedor[] $departamentoHasFornecedors
- * @property Endereco $idEndereco
  * @property PessoaJuridica $idPessoaJuridica
  */
 abstract class BaseFornecedor extends GxActiveRecord {
@@ -40,11 +38,11 @@ abstract class BaseFornecedor extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('id_pessoa_juridica, id_endereco, data_criacao', 'required'),
-			array('id_pessoa_juridica, id_endereco', 'numerical', 'integerOnly'=>true),
+			array('id_pessoa_juridica, data_criacao', 'required'),
+			array('id_pessoa_juridica', 'numerical', 'integerOnly'=>true),
 			array('site', 'length', 'max'=>120),
 			array('site', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id_fornecedor, id_pessoa_juridica, id_endereco, site, data_criacao', 'safe', 'on'=>'search'),
+			array('id_fornecedor, id_pessoa_juridica, site, data_criacao', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -52,7 +50,6 @@ abstract class BaseFornecedor extends GxActiveRecord {
 		return array(
 			'contatos' => array(self::HAS_MANY, 'Contato', 'id_fornecedor'),
 			'departamentoHasFornecedors' => array(self::HAS_MANY, 'DepartamentoHasFornecedor', 'id_fornecedor'),
-			'idEndereco' => array(self::BELONGS_TO, 'Endereco', 'id_endereco'),
 			'idPessoaJuridica' => array(self::BELONGS_TO, 'PessoaJuridica', 'id_pessoa_juridica'),
 		);
 	}
@@ -66,12 +63,10 @@ abstract class BaseFornecedor extends GxActiveRecord {
 		return array(
 			'id_fornecedor' => Yii::t('app', 'Id Fornecedor'),
 			'id_pessoa_juridica' => null,
-			'id_endereco' => null,
 			'site' => Yii::t('app', 'Site'),
 			'data_criacao' => Yii::t('app', 'Data Criacao'),
 			'contatos' => null,
 			'departamentoHasFornecedors' => null,
-			'idEndereco' => null,
 			'idPessoaJuridica' => null,
 		);
 	}
@@ -81,7 +76,6 @@ abstract class BaseFornecedor extends GxActiveRecord {
 
 		$criteria->compare('id_fornecedor', $this->id_fornecedor);
 		$criteria->compare('id_pessoa_juridica', $this->id_pessoa_juridica);
-		$criteria->compare('id_endereco', $this->id_endereco);
 		$criteria->compare('site', $this->site, true);
 		$criteria->compare('data_criacao', $this->data_criacao, true);
 

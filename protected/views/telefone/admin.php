@@ -48,7 +48,6 @@ You may optionally enter a comparison operator (&lt;, &lt;=, &gt;, &gt;=, &lt;&g
 					'value' => '($data->tipo === 0) ? Yii::t(\'app\', \'No\') : Yii::t(\'app\', \'Yes\')',
 					'filter' => array('0' => Yii::t('app', 'No'), '1' => Yii::t('app', 'Yes')),
 					),
-		'codigo',
 		'numero',
 		array(
 			'class' => 'CButtonColumn',

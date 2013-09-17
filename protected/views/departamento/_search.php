@@ -30,6 +30,11 @@
 ; ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->label($model, 'id_telefone'); ?>
+		<?php echo $form->dropDownList($model, 'id_telefone', GxHtml::listDataEx(Telefone::model()->findAllAttributes(null, true)), array('prompt' => Yii::t('app', 'All'))); ?>
+	</div>
+
 	<div class="row buttons">
 		<?php echo GxHtml::submitButton(Yii::t('app', 'Search')); ?>
 	</div>

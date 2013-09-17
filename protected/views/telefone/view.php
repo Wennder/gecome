@@ -21,7 +21,6 @@ $this->menu=array(
 	'attributes' => array(
 'id_telefone',
 'tipo:boolean',
-'codigo',
 'numero',
 	),
 )); ?>
@@ -35,12 +34,12 @@ $this->menu=array(
 		echo GxHtml::closeTag('li');
 	}
 	echo GxHtml::closeTag('ul');
-?><h2><?php echo GxHtml::encode($model->getRelationLabel('funcionarios')); ?></h2>
+?><h2><?php echo GxHtml::encode($model->getRelationLabel('departamentos')); ?></h2>
 <?php
 	echo GxHtml::openTag('ul');
-	foreach($model->funcionarios as $relatedModel) {
+	foreach($model->departamentos as $relatedModel) {
 		echo GxHtml::openTag('li');
-		echo GxHtml::link(GxHtml::encode(GxHtml::valueEx($relatedModel)), array('funcionario/view', 'id' => GxActiveRecord::extractPkValue($relatedModel, true)));
+		echo GxHtml::link(GxHtml::encode(GxHtml::valueEx($relatedModel)), array('departamento/view', 'id' => GxActiveRecord::extractPkValue($relatedModel, true)));
 		echo GxHtml::closeTag('li');
 	}
 	echo GxHtml::closeTag('ul');

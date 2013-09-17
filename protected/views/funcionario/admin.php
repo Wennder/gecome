@@ -48,16 +48,6 @@ You may optionally enter a comparison operator (&lt;, &lt;=, &gt;, &gt;=, &lt;&g
 				'value'=>'GxHtml::valueEx($data->idPessoaFisica)',
 				'filter'=>GxHtml::listDataEx(PessoaFisica::model()->findAllAttributes(null, true)),
 				),
-		array(
-				'name'=>'id_telefone',
-				'value'=>'GxHtml::valueEx($data->idTelefone)',
-				'filter'=>GxHtml::listDataEx(Telefone::model()->findAllAttributes(null, true)),
-				),
-		array(
-				'name'=>'id_endereco',
-				'value'=>'GxHtml::valueEx($data->idEndereco)',
-				'filter'=>GxHtml::listDataEx(Endereco::model()->findAllAttributes(null, true)),
-				),
 		'id_user',
 		'data_criacao',
 		array(

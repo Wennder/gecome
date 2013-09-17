@@ -25,11 +25,6 @@ array(
 			'type' => 'raw',
 			'value' => $model->idPessoaJuridica !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->idPessoaJuridica)), array('pessoaJuridica/view', 'id' => GxActiveRecord::extractPkValue($model->idPessoaJuridica, true))) : null,
 			),
-array(
-			'name' => 'idEndereco',
-			'type' => 'raw',
-			'value' => $model->idEndereco !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->idEndereco)), array('endereco/view', 'id' => GxActiveRecord::extractPkValue($model->idEndereco, true))) : null,
-			),
 'site',
 'data_criacao',
 	),
