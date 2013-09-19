@@ -158,7 +158,7 @@
         color: #87b2ff;
         margin-top: -15px;
     }
-    label.del_telefone, label.erro_senha
+    label.del_telefone, label.erro_senha, label.erro_cpf, label.erro_cnpj
     {
         color: #b94a48;
         display: inline-block;
