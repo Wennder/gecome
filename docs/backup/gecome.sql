@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 17, 2013 at 02:56 AM
+-- Generation Time: Sep 22, 2013 at 12:52 AM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -5623,6 +5623,49 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   PRIMARY KEY (`id_cliente`),
   KEY `fk_cliente_pessoa_fisica1_idx` (`id_pessoa_fisica`),
   KEY `fk_cliente_pessoa_juridica1_idx` (`id_pessoa_juridica`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `cliente`
+--
+
+INSERT INTO `cliente` (`id_cliente`, `id_pessoa_fisica`, `id_pessoa_juridica`, `id_user`, `data_criacao`) VALUES
+(1, NULL, 1, 11, '2013-09-21'),
+(2, NULL, 2, 12, '2013-09-21');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `compra`
+--
+
+CREATE TABLE IF NOT EXISTS `compra` (
+  `id_compra` int(11) NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(20) DEFAULT NULL,
+  `valor` decimal(6,2) NOT NULL,
+  `data_compra` datetime NOT NULL,
+  `id_tipo_pagamento` int(11) NOT NULL,
+  `id_cliente` int(11) NOT NULL,
+  `id_status_compra` int(11) NOT NULL,
+  PRIMARY KEY (`id_compra`),
+  KEY `fk_compra_tipo_pagamento1_idx` (`id_tipo_pagamento`),
+  KEY `fk_compra_cliente1_idx` (`id_cliente`),
+  KEY `fk_compra_status_compra1_idx` (`id_status_compra`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `compra_has_produto`
+--
+
+CREATE TABLE IF NOT EXISTS `compra_has_produto` (
+  `id_compra_has_produto` int(11) NOT NULL AUTO_INCREMENT,
+  `id_compra` int(11) NOT NULL,
+  `id_produto` int(11) NOT NULL,
+  PRIMARY KEY (`id_compra_has_produto`),
+  KEY `fk_compra_has_produto_produto1_idx` (`id_produto`),
+  KEY `fk_compra_has_produto_compra1_idx` (`id_compra`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -5654,9 +5697,7 @@ CREATE TABLE IF NOT EXISTS `departamento` (
   `id_departamento` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(120) NOT NULL,
   `data_criacao` date NOT NULL,
-  `id_telefone` int(11) NOT NULL,
-  PRIMARY KEY (`id_departamento`),
-  KEY `fk_departamento_telefone1_idx` (`id_telefone`)
+  PRIMARY KEY (`id_departamento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -5672,21 +5713,6 @@ CREATE TABLE IF NOT EXISTS `departamento_has_fornecedor` (
   PRIMARY KEY (`id_departamento_has_fornecedor`),
   KEY `fk_departamento_has_fornecedor_departamento1_idx` (`id_departamento`),
   KEY `fk_departamento_has_fornecedor_fornecedor1_idx` (`id_fornecedor`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `departamento_has_funcionario`
---
-
-CREATE TABLE IF NOT EXISTS `departamento_has_funcionario` (
-  `id_departamento_has_funcionario` int(11) NOT NULL AUTO_INCREMENT,
-  `id_departamento` int(11) NOT NULL,
-  `id_funcionario` int(11) NOT NULL,
-  PRIMARY KEY (`id_departamento_has_funcionario`),
-  KEY `fk_departamento_has_funcionario_departamento1_idx` (`id_departamento`),
-  KEY `fk_departamento_has_funcionario_funcionario1_idx` (`id_funcionario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -5708,6 +5734,26 @@ CREATE TABLE IF NOT EXISTS `endereco` (
   `id_cidade` int(11) NOT NULL,
   PRIMARY KEY (`id_endereco`),
   KEY `fk_endereco_cidade1_idx` (`id_cidade`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `endereco`
+--
+
+INSERT INTO `endereco` (`id_endereco`, `nome`, `cep`, `tipo`, `rua`, `numero`, `complemento`, `descricao`, `bairro`, `id_cidade`) VALUES
+(1, 'teste', '11111-111', 0, 'teste', '111', '111', 'teste', 'teste', 4214),
+(2, '123', '11111-111', 0, '123', '123', '123', '123', '123', 4174);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `especificacao`
+--
+
+CREATE TABLE IF NOT EXISTS `especificacao` (
+  `id_especificacao` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(120) DEFAULT NULL,
+  PRIMARY KEY (`id_especificacao`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -5786,6 +5832,52 @@ CREATE TABLE IF NOT EXISTS `funcionario` (
   `data_criacao` date NOT NULL,
   PRIMARY KEY (`id_funcionario`),
   KEY `fk_funcionario_pessoa_fisica1_idx` (`id_pessoa_fisica`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `imagem`
+--
+
+CREATE TABLE IF NOT EXISTS `imagem` (
+  `id_imagem` int(11) NOT NULL AUTO_INCREMENT,
+  `caminho` varchar(120) DEFAULT NULL,
+  `nome` varchar(120) DEFAULT NULL,
+  `principal` tinyint(1) DEFAULT NULL,
+  `id_produto` int(11) NOT NULL,
+  PRIMARY KEY (`id_imagem`),
+  KEY `fk_imagem_produto1_idx` (`id_produto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `marca`
+--
+
+CREATE TABLE IF NOT EXISTS `marca` (
+  `id_marca` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(120) DEFAULT NULL,
+  PRIMARY KEY (`id_marca`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pagamento`
+--
+
+CREATE TABLE IF NOT EXISTS `pagamento` (
+  `id_pagamento` int(11) NOT NULL AUTO_INCREMENT,
+  `valor` decimal(6,2) NOT NULL,
+  `data_vencimento` date NOT NULL,
+  `data_pagamento` date DEFAULT NULL,
+  `id_compra` int(11) NOT NULL,
+  `id_status_pagamento` int(11) NOT NULL,
+  PRIMARY KEY (`id_pagamento`),
+  KEY `fk_pagamento_compra1_idx` (`id_compra`),
+  KEY `fk_pagamento_status_pagamento1_idx` (`id_status_pagamento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -6088,7 +6180,15 @@ CREATE TABLE IF NOT EXISTS `pessoa_has_endereco` (
   KEY `fk_pessoa_has_endereco_pessoa_fisica1_idx` (`id_pessoa_fisica`),
   KEY `fk_pessoa_has_endereco_endereco1_idx` (`id_endereco`),
   KEY `fk_pessoa_has_endereco_pessoa_juridica1_idx` (`id_pessoa_juridica`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `pessoa_has_endereco`
+--
+
+INSERT INTO `pessoa_has_endereco` (`id_pessoa_has_endereco`, `id_pessoa_fisica`, `id_pessoa_juridica`, `id_endereco`, `preferencial`) VALUES
+(1, NULL, 1, 1, 1),
+(2, NULL, 2, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -6106,7 +6206,15 @@ CREATE TABLE IF NOT EXISTS `pessoa_has_telefone` (
   KEY `fk_pessoa_has_telefone_pessoa_fisica1_idx` (`id_pessoa_fisica`),
   KEY `fk_pessoa_has_telefone_pessoa_juridica1_idx` (`id_pessoa_juridica`),
   KEY `fk_pessoa_has_telefone_telefone1_idx` (`id_telefone`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `pessoa_has_telefone`
+--
+
+INSERT INTO `pessoa_has_telefone` (`id_pessoa_has_telefone`, `id_pessoa_fisica`, `id_pessoa_juridica`, `id_telefone`, `preferencial`) VALUES
+(1, NULL, 2, 1, 1),
+(2, NULL, 2, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -6122,6 +6230,122 @@ CREATE TABLE IF NOT EXISTS `pessoa_juridica` (
   `insc_estadual` varchar(8) DEFAULT NULL,
   `email` varchar(120) NOT NULL,
   PRIMARY KEY (`id_pessoa_juridica`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `pessoa_juridica`
+--
+
+INSERT INTO `pessoa_juridica` (`id_pessoa_juridica`, `razao_social`, `nome_fantasia`, `cnpj`, `insc_estadual`, `email`) VALUES
+(1, 'teste', 'teste', '81.273.818/0001-80', NULL, 'teste2@teste.com'),
+(2, 'teste', 'teste', '81.273.818/0001-80', '11111111', 'teste3@teste.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `produto`
+--
+
+CREATE TABLE IF NOT EXISTS `produto` (
+  `id_produto` int(11) NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(10) DEFAULT NULL,
+  `nome` varchar(120) NOT NULL,
+  `descricao` text,
+  `preco` decimal(5,2) DEFAULT '0.00',
+  `quantidade` int(11) DEFAULT NULL,
+  `promocao` tinyint(1) DEFAULT '0',
+  `data_cadastro` date NOT NULL,
+  `id_marca` int(11) NOT NULL,
+  `id_sub_departamento` int(11) NOT NULL,
+  PRIMARY KEY (`id_produto`),
+  KEY `fk_produto_marca1_idx` (`id_marca`),
+  KEY `fk_produto_sub_departamento1_idx` (`id_sub_departamento`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `produto_has_especificacao`
+--
+
+CREATE TABLE IF NOT EXISTS `produto_has_especificacao` (
+  `id_produto_has_especificacao` int(11) NOT NULL AUTO_INCREMENT,
+  `valor` varchar(120) DEFAULT NULL,
+  `id_especificacao` int(11) NOT NULL,
+  `id_produto` int(11) NOT NULL,
+  PRIMARY KEY (`id_produto_has_especificacao`),
+  KEY `fk_produto_has_especificacao_especificacao1_idx` (`id_especificacao`),
+  KEY `fk_produto_has_especificacao_produto1_idx` (`id_produto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `promocao`
+--
+
+CREATE TABLE IF NOT EXISTS `promocao` (
+  `id_promocao` int(11) NOT NULL AUTO_INCREMENT,
+  `data_inicio` date NOT NULL,
+  `data_fim` date DEFAULT NULL,
+  `ativo` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id_promocao`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `promocao_has_produto`
+--
+
+CREATE TABLE IF NOT EXISTS `promocao_has_produto` (
+  `id_promocao_has_produto` int(11) NOT NULL AUTO_INCREMENT,
+  `id_promocao` int(11) NOT NULL,
+  `id_produto` int(11) NOT NULL,
+  `desconto` int(3) DEFAULT NULL,
+  `quantidade` int(11) DEFAULT NULL,
+  `quantidade_vendida` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_promocao_has_produto`),
+  KEY `fk_promocao_has_produto_promocao1_idx` (`id_promocao`),
+  KEY `fk_promocao_has_produto_produto1_idx` (`id_produto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `status_compra`
+--
+
+CREATE TABLE IF NOT EXISTS `status_compra` (
+  `id_status_compra` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(45) NOT NULL,
+  PRIMARY KEY (`id_status_compra`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `status_pagamento`
+--
+
+CREATE TABLE IF NOT EXISTS `status_pagamento` (
+  `id_status_pagamento` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(45) NOT NULL,
+  PRIMARY KEY (`id_status_pagamento`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sub_departamento`
+--
+
+CREATE TABLE IF NOT EXISTS `sub_departamento` (
+  `id_sub_departamento` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(120) NOT NULL,
+  `id_departamento` int(11) NOT NULL,
+  PRIMARY KEY (`id_sub_departamento`),
+  KEY `fk_sub_departamento_departamento1_idx` (`id_departamento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -6133,9 +6357,17 @@ CREATE TABLE IF NOT EXISTS `pessoa_juridica` (
 CREATE TABLE IF NOT EXISTS `telefone` (
   `id_telefone` int(11) NOT NULL AUTO_INCREMENT,
   `tipo` tinyint(1) NOT NULL COMMENT '0 - residencial\n1 - celular\n2 - comercial',
-  `numero` varchar(13) NOT NULL,
+  `numero` varchar(14) NOT NULL,
   PRIMARY KEY (`id_telefone`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `telefone`
+--
+
+INSERT INTO `telefone` (`id_telefone`, `tipo`, `numero`) VALUES
+(1, 0, '(11) 1111-1111'),
+(2, 1, '(22) 2222-2222');
 
 -- --------------------------------------------------------
 
@@ -6152,6 +6384,18 @@ CREATE TABLE IF NOT EXISTS `tipo_contato` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tipo_pagamento`
+--
+
+CREATE TABLE IF NOT EXISTS `tipo_pagamento` (
+  `id_tipo_pagamento` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id_tipo_pagamento`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `usergroups_access`
 --
 
@@ -6163,7 +6407,7 @@ CREATE TABLE IF NOT EXISTS `usergroups_access` (
   `controller` varchar(140) NOT NULL,
   `permission` varchar(7) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `usergroups_access`
@@ -6174,8 +6418,19 @@ INSERT INTO `usergroups_access` (`id`, `element`, `element_id`, `module`, `contr
 (3, 2, 3, 'userGroups', 'user', 'admin'),
 (4, 2, 3, 'userGroups', 'admin', 'write'),
 (5, 2, 3, 'userGroups', 'admin', 'admin'),
-(6, 2, 3, 'Basic', 'cliente', 'admin'),
-(7, 2, 3, 'Basic', 'estado', 'admin');
+(7, 2, 3, 'Basic', 'estado', 'admin'),
+(8, 2, 4, 'Basic', 'cidade', 'read'),
+(9, 2, 4, 'Basic', 'cliente', 'write'),
+(10, 2, 4, 'Basic', 'endereco', 'write'),
+(11, 2, 4, 'Basic', 'estado', 'read'),
+(12, 2, 4, 'Basic', 'pais', 'read'),
+(13, 2, 4, 'Basic', 'pessoaFisica', 'read'),
+(14, 2, 4, 'Basic', 'pessoaHasEndereco', 'read'),
+(15, 2, 4, 'Basic', 'pessoaHasTelefone', 'read'),
+(16, 2, 4, 'Basic', 'pessoaJuridica', 'read'),
+(17, 2, 4, 'Basic', 'site', 'read'),
+(18, 2, 4, 'Basic', 'telefone', 'write'),
+(19, 2, 3, 'Basic', 'cliente', 'read');
 
 -- --------------------------------------------------------
 
@@ -6199,13 +6454,13 @@ CREATE TABLE IF NOT EXISTS `usergroups_configuration` (
 INSERT INTO `usergroups_configuration` (`id`, `rule`, `value`, `options`, `description`) VALUES
 (1, 'version', '1.8', 'CONST', 'userGroups version'),
 (2, 'password_strength', '0', 'a:3:{i:0;s:4:"weak";i:1;s:6:"medium";i:2;s:6:"strong";}', 'password strength:<br/>weak: password of at least 5 characters, any character allowed.<br/>\r\n			medium: password of at least 5 characters, must contain at least 2 digits and 2 letters.<br/>\r\n			strong: password of at least 5 characters, must contain at least 2 digits, 2 letters and a special character.'),
-(3, 'registration', 'FALSE', 'BOOL', 'allow user registration'),
+(3, 'registration', 'TRUE', 'BOOL', 'allow user registration'),
 (4, 'public_user_list', 'FALSE', 'BOOL', 'logged users can see the complete user list'),
 (5, 'public_profiles', 'FALSE', 'BOOL', 'allow everyone, even guests, to see user profiles'),
 (6, 'profile_privacy', 'TRUE', 'BOOL', 'logged user can see other users profiles'),
 (7, 'personal_home', 'FALSE', 'BOOL', 'users can set their own home'),
-(8, 'simple_password_reset', 'FALSE', 'BOOL', 'if true users just have to provide user and email to reset their password.<br/>Otherwise they will have to answer their custom question'),
-(9, 'user_need_activation', 'TRUE', 'BOOL', 'if true when a user creates an account a mail with an activation code will be sent to his email address'),
+(8, 'simple_password_reset', 'TRUE', 'BOOL', 'if true users just have to provide user and email to reset their password.<br/>Otherwise they will have to answer their custom question'),
+(9, 'user_need_activation', 'FALSE', 'BOOL', 'if true when a user creates an account a mail with an activation code will be sent to his email address'),
 (10, 'user_need_approval', 'FALSE', 'BOOL', 'if true when a user creates an account a user with user admin rights will have to approve the registration.<br/>If both this setting and user_need_activation are true the user will need to activate is account first and then will need the approval'),
 (11, 'user_registration_group', '2', 'GROUP_LIST', 'the group new users automatically belong to'),
 (12, 'dumb_admin', 'TRUE', 'BOOL', 'users with just admin write permissions won''t see the Main Configuration and Cron Jobs panels'),
@@ -6232,8 +6487,8 @@ CREATE TABLE IF NOT EXISTS `usergroups_cron` (
 --
 
 INSERT INTO `usergroups_cron` (`id`, `name`, `lapse`, `last_occurrence`) VALUES
-(1, 'garbage_collection', 7, '2013-09-14 00:00:00'),
-(2, 'unban', 1, '2013-09-15 00:00:00');
+(1, 'garbage_collection', 7, '2013-09-21 00:00:00'),
+(2, 'unban', 1, '2013-09-21 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -6248,7 +6503,7 @@ CREATE TABLE IF NOT EXISTS `usergroups_group` (
   `home` varchar(120) CHARACTER SET latin1 DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `groupname` (`groupname`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `usergroups_group`
@@ -6257,7 +6512,8 @@ CREATE TABLE IF NOT EXISTS `usergroups_group` (
 INSERT INTO `usergroups_group` (`id`, `groupname`, `level`, `home`) VALUES
 (1, 'root', 100, NULL),
 (2, 'user', 1, '/userGroups'),
-(3, 'admin', 99, '/userGroups/admin');
+(3, 'admin', 99, '/userGroups/admin'),
+(4, 'cliente', 2, '/site');
 
 -- --------------------------------------------------------
 
@@ -6310,15 +6566,19 @@ CREATE TABLE IF NOT EXISTS `usergroups_user` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   KEY `group_id_idxfk` (`group_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `usergroups_user`
 --
 
 INSERT INTO `usergroups_user` (`id`, `group_id`, `username`, `password`, `email`, `home`, `status`, `question`, `answer`, `creation_date`, `activation_code`, `activation_time`, `last_login`, `ban`, `ban_reason`) VALUES
-(1, 1, 'root', '7374fba8c59168bace36a26ed927f38f', 'dallrigo@gmail.com', '/userGroups/admin/documentation', 4, 'wat', 'wat', '2013-09-05 00:24:49', NULL, NULL, '2013-09-15 06:40:18', NULL, NULL),
-(3, 3, 'admin', '08301100ffd772ad74c5a338ff68c548', 'dallrigo1@gmail.com', '/userGroups/admin', 4, NULL, NULL, '2013-09-10 22:49:39', NULL, NULL, '2013-09-15 06:43:06', NULL, NULL);
+(1, 1, 'root', '7374fba8c59168bace36a26ed927f38f', 'dallrigo@gmail.com', '/userGroups/admin/documentation', 4, 'wat', 'wat', '2013-09-05 00:24:49', NULL, NULL, '2013-09-21 22:37:50', NULL, NULL),
+(3, 3, 'admin', '08301100ffd772ad74c5a338ff68c548', 'dallrigo1@gmail.com', '/userGroups/admin', 4, NULL, NULL, '2013-09-10 22:49:39', NULL, NULL, '2013-09-20 00:56:16', NULL, NULL),
+(4, 4, 'cliente', 'dfd87fd94303d2b010303f5a0879a185', 'cliente@cliente.com', NULL, 4, NULL, NULL, '2013-09-17 04:24:18', NULL, NULL, '2013-09-17 02:24:34', NULL, NULL),
+(10, 4, 'teste', '17f30db6cc7fb9db92e203931b52eb21', 'teste@teste.com', NULL, 4, NULL, NULL, '2013-09-22 00:40:02', NULL, NULL, '2013-09-21 22:40:18', NULL, NULL),
+(11, 4, 'teste2', '35aad03f8d97321ea4af5b53e96c5fdf', 'teste2@teste.com', NULL, 4, NULL, NULL, '2013-09-22 00:42:33', NULL, NULL, NULL, NULL, NULL),
+(12, 4, 'teste3', 'd4b7fa1edd939e5e80789b990b49f925', 'teste3@teste.com', NULL, 4, NULL, NULL, '2013-09-22 00:49:15', NULL, NULL, NULL, NULL, NULL);
 
 --
 -- Constraints for dumped tables
@@ -6338,6 +6598,21 @@ ALTER TABLE `cliente`
   ADD CONSTRAINT `fk_cliente_pessoa_juridica1` FOREIGN KEY (`id_pessoa_juridica`) REFERENCES `pessoa_juridica` (`id_pessoa_juridica`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `compra`
+--
+ALTER TABLE `compra`
+  ADD CONSTRAINT `fk_compra_tipo_pagamento1` FOREIGN KEY (`id_tipo_pagamento`) REFERENCES `tipo_pagamento` (`id_tipo_pagamento`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_compra_cliente1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_compra_status_compra1` FOREIGN KEY (`id_status_compra`) REFERENCES `status_compra` (`id_status_compra`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `compra_has_produto`
+--
+ALTER TABLE `compra_has_produto`
+  ADD CONSTRAINT `fk_compra_has_produto_produto1` FOREIGN KEY (`id_produto`) REFERENCES `produto` (`id_produto`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_compra_has_produto_compra1` FOREIGN KEY (`id_compra`) REFERENCES `compra` (`id_compra`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `contato`
 --
 ALTER TABLE `contato`
@@ -6346,24 +6621,11 @@ ALTER TABLE `contato`
   ADD CONSTRAINT `fk_contato_tipo_contato1` FOREIGN KEY (`id_tipo_contato`) REFERENCES `tipo_contato` (`id_tipo_contato`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `departamento`
---
-ALTER TABLE `departamento`
-  ADD CONSTRAINT `fk_departamento_telefone1` FOREIGN KEY (`id_telefone`) REFERENCES `telefone` (`id_telefone`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `departamento_has_fornecedor`
 --
 ALTER TABLE `departamento_has_fornecedor`
   ADD CONSTRAINT `fk_departamento_has_fornecedor_departamento1` FOREIGN KEY (`id_departamento`) REFERENCES `departamento` (`id_departamento`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_departamento_has_fornecedor_fornecedor1` FOREIGN KEY (`id_fornecedor`) REFERENCES `fornecedor` (`id_fornecedor`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `departamento_has_funcionario`
---
-ALTER TABLE `departamento_has_funcionario`
-  ADD CONSTRAINT `fk_dapartamento_has_funcionario_departamento1` FOREIGN KEY (`id_departamento`) REFERENCES `departamento` (`id_departamento`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_dapartamento_has_funcionario_funcionario1` FOREIGN KEY (`id_funcionario`) REFERENCES `funcionario` (`id_funcionario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `endereco`
@@ -6390,6 +6652,19 @@ ALTER TABLE `funcionario`
   ADD CONSTRAINT `fk_funcionario_pessoa_fisica1` FOREIGN KEY (`id_pessoa_fisica`) REFERENCES `pessoa_fisica` (`id_pessoa_fisica`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `imagem`
+--
+ALTER TABLE `imagem`
+  ADD CONSTRAINT `fk_imagem_produto1` FOREIGN KEY (`id_produto`) REFERENCES `produto` (`id_produto`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `pagamento`
+--
+ALTER TABLE `pagamento`
+  ADD CONSTRAINT `fk_pagamento_compra1` FOREIGN KEY (`id_compra`) REFERENCES `compra` (`id_compra`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_pagamento_status_pagamento1` FOREIGN KEY (`id_status_pagamento`) REFERENCES `status_pagamento` (`id_status_pagamento`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `pessoa_has_endereco`
 --
 ALTER TABLE `pessoa_has_endereco`
@@ -6404,6 +6679,33 @@ ALTER TABLE `pessoa_has_telefone`
   ADD CONSTRAINT `fk_pessoa_has_telefone_pessoa_fisica1` FOREIGN KEY (`id_pessoa_fisica`) REFERENCES `pessoa_fisica` (`id_pessoa_fisica`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_pessoa_has_telefone_pessoa_juridica1` FOREIGN KEY (`id_pessoa_juridica`) REFERENCES `pessoa_juridica` (`id_pessoa_juridica`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_pessoa_has_telefone_telefone1` FOREIGN KEY (`id_telefone`) REFERENCES `telefone` (`id_telefone`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `produto`
+--
+ALTER TABLE `produto`
+  ADD CONSTRAINT `fk_produto_marca1` FOREIGN KEY (`id_marca`) REFERENCES `marca` (`id_marca`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_produto_sub_departamento1` FOREIGN KEY (`id_sub_departamento`) REFERENCES `sub_departamento` (`id_sub_departamento`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `produto_has_especificacao`
+--
+ALTER TABLE `produto_has_especificacao`
+  ADD CONSTRAINT `fk_produto_has_especificacao_especificacao1` FOREIGN KEY (`id_especificacao`) REFERENCES `especificacao` (`id_especificacao`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_produto_has_especificacao_produto1` FOREIGN KEY (`id_produto`) REFERENCES `produto` (`id_produto`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `promocao_has_produto`
+--
+ALTER TABLE `promocao_has_produto`
+  ADD CONSTRAINT `fk_promocao_has_produto_promocao1` FOREIGN KEY (`id_promocao`) REFERENCES `promocao` (`id_promocao`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_promocao_has_produto_produto1` FOREIGN KEY (`id_produto`) REFERENCES `produto` (`id_produto`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `sub_departamento`
+--
+ALTER TABLE `sub_departamento`
+  ADD CONSTRAINT `fk_sub_departamento_departamento1` FOREIGN KEY (`id_departamento`) REFERENCES `departamento` (`id_departamento`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `usergroups_user`

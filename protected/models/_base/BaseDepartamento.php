@@ -12,11 +12,9 @@
  * @property integer $id_departamento
  * @property string $nome
  * @property string $data_criacao
- * @property integer $id_telefone
  *
- * @property Telefone $idTelefone
  * @property DepartamentoHasFornecedor[] $departamentoHasFornecedors
- * @property DepartamentoHasFuncionario[] $departamentoHasFuncionarios
+ * @property SubDepartamento[] $subDepartamentos
  */
 abstract class BaseDepartamento extends GxActiveRecord {
 
@@ -38,18 +36,16 @@ abstract class BaseDepartamento extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('nome, data_criacao, id_telefone', 'required'),
-			array('id_telefone', 'numerical', 'integerOnly'=>true),
+			array('nome, data_criacao', 'required'),
 			array('nome', 'length', 'max'=>120),
-			array('id_departamento, nome, data_criacao, id_telefone', 'safe', 'on'=>'search'),
+			array('id_departamento, nome, data_criacao', 'safe', 'on'=>'search'),
 		);
 	}
 
 	public function relations() {
 		return array(
-			'idTelefone' => array(self::BELONGS_TO, 'Telefone', 'id_telefone'),
 			'departamentoHasFornecedors' => array(self::HAS_MANY, 'DepartamentoHasFornecedor', 'id_departamento'),
-			'departamentoHasFuncionarios' => array(self::HAS_MANY, 'DepartamentoHasFuncionario', 'id_departamento'),
+			'subDepartamentos' => array(self::HAS_MANY, 'SubDepartamento', 'id_departamento'),
 		);
 	}
 
@@ -63,10 +59,8 @@ abstract class BaseDepartamento extends GxActiveRecord {
 			'id_departamento' => Yii::t('app', 'Id Departamento'),
 			'nome' => Yii::t('app', 'Nome'),
 			'data_criacao' => Yii::t('app', 'Data Criacao'),
-			'id_telefone' => null,
-			'idTelefone' => null,
 			'departamentoHasFornecedors' => null,
-			'departamentoHasFuncionarios' => null,
+			'subDepartamentos' => null,
 		);
 	}
 
@@ -76,7 +70,6 @@ abstract class BaseDepartamento extends GxActiveRecord {
 		$criteria->compare('id_departamento', $this->id_departamento);
 		$criteria->compare('nome', $this->nome, true);
 		$criteria->compare('data_criacao', $this->data_criacao, true);
-		$criteria->compare('id_telefone', $this->id_telefone);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

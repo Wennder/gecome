@@ -14,7 +14,6 @@
  * @property string $id_user
  * @property string $data_criacao
  *
- * @property DepartamentoHasFuncionario[] $departamentoHasFuncionarios
  * @property PessoaFisica $idPessoaFisica
  */
 abstract class BaseFuncionario extends GxActiveRecord {
@@ -47,7 +46,6 @@ abstract class BaseFuncionario extends GxActiveRecord {
 
 	public function relations() {
 		return array(
-			'departamentoHasFuncionarios' => array(self::HAS_MANY, 'DepartamentoHasFuncionario', 'id_funcionario'),
 			'idPessoaFisica' => array(self::BELONGS_TO, 'PessoaFisica', 'id_pessoa_fisica'),
 		);
 	}
@@ -63,7 +61,6 @@ abstract class BaseFuncionario extends GxActiveRecord {
 			'id_pessoa_fisica' => null,
 			'id_user' => Yii::t('app', 'Id User'),
 			'data_criacao' => Yii::t('app', 'Data Criacao'),
-			'departamentoHasFuncionarios' => null,
 			'idPessoaFisica' => null,
 		);
 	}

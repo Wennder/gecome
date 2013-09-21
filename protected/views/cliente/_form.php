@@ -41,9 +41,7 @@
         </div>
     </div>
     
-    <div id="add_telefone">
-        <?php echo $form->textFieldRow($model, 'telefones[numero][]', array('class' => 'phone')); ?>
-    </div>
+    
     
     <div id="receptor"></div>
     

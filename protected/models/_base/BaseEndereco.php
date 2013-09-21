@@ -26,14 +26,6 @@
  * @property PessoaHasEndereco[] $pessoaHasEnderecos
  */
 abstract class BaseEndereco extends GxActiveRecord {
-
-        public $local_novo;
-    
-        public $pais_novo;
-        
-        public $estado_novo;
-        
-        public $cidade_nova;
     
 	public static function model($className=__CLASS__) {
 		return parent::model($className);
@@ -53,7 +45,7 @@ abstract class BaseEndereco extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('nome, cep, rua, numero, bairro, id_cidade, id_pais', 'required'),
+			array('nome, cep, rua, numero, bairro, id_cidade', 'required'),
 			array('tipo, id_cidade', 'numerical', 'integerOnly'=>true),
 			array('nome, rua, bairro', 'length', 'max'=>120),
 			array('cep', 'length', 'max'=>9),
@@ -68,8 +60,6 @@ abstract class BaseEndereco extends GxActiveRecord {
 	public function relations() {
 		return array(
 			'idCidade' => array(self::BELONGS_TO, 'Cidade', 'id_cidade'),
-			'fornecedors' => array(self::HAS_MANY, 'Fornecedor', 'id_endereco'),
-			'funcionarios' => array(self::HAS_MANY, 'Funcionario', 'id_endereco'),
 			'pessoaHasEnderecos' => array(self::HAS_MANY, 'PessoaHasEndereco', 'id_endereco'),
 		);
 	}
@@ -92,11 +82,7 @@ abstract class BaseEndereco extends GxActiveRecord {
 			'bairro' => Yii::t('app', 'Bairro'),
 			'id_cidade' => 'Cidade',
 			'idCidade' => null,
-			'fornecedors' => null,
-			'funcionarios' => null,
 			'pessoaHasEnderecos' => null,
-                        'id_pais' => 'País',
-                        'id_estado' => 'Estado',
 		);
 	}
 

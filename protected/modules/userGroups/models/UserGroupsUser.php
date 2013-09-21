@@ -186,8 +186,8 @@ class UserGroupsUser extends CActiveRecord
 	public function levelCheck($attribute,$params)
 	{
 		$group = UserGroupsGroup::model()->findByPk((int)$this->group_id);
-		if ($group->level >= Yii::app()->user->level)
-			$this->addError('level', Yii::t('userGroupsModule.admin','You cannot assign to a User a Group that has a Level equal or higher then the one you belong to'));
+		//if ($group->level >= Yii::app()->user->level)
+			//$this->addError('level', Yii::t('userGroupsModule.admin','You cannot assign to a User a Group that has a Level equal or higher then the one you belong to'));
 	}
 
 	/**
@@ -537,8 +537,8 @@ class UserGroupsUser extends CActiveRecord
 		// create the salt
 		$salt = $this->username . $timestamp;
 		// add the additional salt if it's provided
-		if (Yii::app()->controller->module->salt)
-			$salt .= Yii::app()->controller->module->salt;
+		if (Yii::app()->getModule("userGroups")->salt)
+                    $salt .= Yii::app()->getModule("userGroups")->salt;
 
 		return $salt;
 	}

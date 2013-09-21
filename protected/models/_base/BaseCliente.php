@@ -17,6 +17,7 @@
  *
  * @property PessoaFisica $idPessoaFisica
  * @property PessoaJuridica $idPessoaJuridica
+ * @property Compra[] $compras
  */
 abstract class BaseCliente extends GxActiveRecord {
 
@@ -62,6 +63,7 @@ abstract class BaseCliente extends GxActiveRecord {
 		return array(
 			'idPessoaFisica' => array(self::BELONGS_TO, 'PessoaFisica', 'id_pessoa_fisica'),
 			'idPessoaJuridica' => array(self::BELONGS_TO, 'PessoaJuridica', 'id_pessoa_juridica'),
+                        'compras' => array(self::HAS_MANY, 'Compra', 'id_cliente'),
 		);
 	}
 
@@ -79,6 +81,7 @@ abstract class BaseCliente extends GxActiveRecord {
 			'data_criacao' => Yii::t('app', 'Data Criação'),
 			'idPessoaFisica' => null,
 			'idPessoaJuridica' => null,
+                        'compras' => null,
                         'username' => 'Usuário',
                         'email' => 'E-mail',
                         'senha' => 'Senha',

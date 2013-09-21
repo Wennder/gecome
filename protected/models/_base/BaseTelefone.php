@@ -14,7 +14,6 @@
  * @property string $numero
  *
  * @property Contato[] $contatos
- * @property Departamento[] $departamentos
  * @property PessoaHasTelefone[] $pessoaHasTelefones
  */
 abstract class BaseTelefone extends GxActiveRecord {
@@ -39,7 +38,7 @@ abstract class BaseTelefone extends GxActiveRecord {
 		return array(
 			array('tipo, numero', 'required'),
 			array('tipo', 'numerical', 'integerOnly'=>true),
-			array('numero', 'length', 'max'=>13),
+			array('numero', 'length', 'max'=>14),
 			array('id_telefone, tipo, numero', 'safe', 'on'=>'search'),
 		);
 	}
@@ -47,7 +46,6 @@ abstract class BaseTelefone extends GxActiveRecord {
 	public function relations() {
 		return array(
 			'contatos' => array(self::HAS_MANY, 'Contato', 'id_telefone'),
-			'departamentos' => array(self::HAS_MANY, 'Departamento', 'id_telefone'),
 			'pessoaHasTelefones' => array(self::HAS_MANY, 'PessoaHasTelefone', 'id_telefone'),
 		);
 	}
@@ -63,7 +61,6 @@ abstract class BaseTelefone extends GxActiveRecord {
 			'tipo' => Yii::t('app', 'Tipo'),
 			'numero' => Yii::t('app', 'Numero'),
 			'contatos' => null,
-			'departamentos' => null,
 			'pessoaHasTelefones' => null,
 		);
 	}
